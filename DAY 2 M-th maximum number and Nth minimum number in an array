@@ -1,0 +1,42 @@
+#include<stdio.h>
+
+int main(){
+    int size=0;
+    printf("Enter the total no. of elements: ");
+    scanf("%d",&size);
+
+    int arr[size];
+    printf("Enter the elements: ");
+    for (int i = 0; i < size; i++)
+     scanf("%d",&arr[i]);
+    
+    int n,m;
+    printf("Enter the m value: ");
+    scanf("%d",&m);
+    printf("Enter the n value: ");
+    scanf("%d",&n);
+
+    if(m<=0 || n<=0)
+     printf("illegal input...!");
+
+    else if(m>size || n<0)
+     printf("illegal input...!");
+
+    else{
+        int temp=0;
+
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+            }
+        }
+
+        printf("Sum: %d\n",arr[size-m]+arr[n-1]);
+        printf("Difference: %d",arr[size-m]-arr[n-1]);
+    }
+
+    
+
+}
