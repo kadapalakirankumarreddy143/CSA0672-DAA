@@ -1,0 +1,98 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+	int data;
+	struct node*left;
+	struct node*right;
+}*root=NULL,*newnode;
+
+
+struct node*create(struct node*root,int ele)
+{
+	
+	if(root==NULL)
+	{
+		newnode=(struct node*)malloc(sizeof(struct node));
+		newnode->data=ele;
+		newnode->left=NULL;
+		newnode->right=NULL;
+		return(newnode);
+	}
+	else if(ele>root->data)
+		root->right=create(root->right,ele);
+	else if(ele<root->data)
+		root->left=create(root->left,ele);
+	return(root);
+}
+
+
+void inorder(struct node *root)
+{
+	if(root!=NULL)
+	{
+		inorder(root->left);
+		printf("%d\t",root->data);
+		inorder(root->right);
+	}
+	
+}
+void preorder(struct node *root)
+{
+	if(root!=NULL)
+	{
+		printf("%d\t",root->data);
+		preorder(root->left);
+		preorder(root->right);
+	}
+}
+
+
+void postorder(struct node *root)
+{
+	if(root!=NULL)
+	{
+		postorder(root->left);
+		postorder(root->right);
+		printf("%d\t",root->data);
+	}
+}
+int main()
+{
+	int choice;
+	while(1)
+	{
+	printf("\nMAIN MEANU\n");
+	printf("\n1.CREATE\n");
+	printf("\n2.INORDER\n");
+	printf("\n3.PREORDER\n");
+	printf("\n4.POSTORDER\n");
+	printf("\n5.EXIT\n");
+	printf("\nENTER THE CHOICE:\t");
+	scanf("%d",&choice);
+	switch(choice)
+	{
+		case 1:
+			int ele;
+			printf("ENTER THE ELEMENT:");
+			scanf("%d",&ele);
+			root=create(root,ele);
+			break;
+		case 2:
+			inorder(root);
+			break;
+		case 3:
+			preorder(root);
+			break;
+		case 4:
+			postorder(root);
+			break;				
+		case 5:
+			exit(0);
+			break;
+		default:
+			printf("\nWRONG CHOICE\n");
+			break;		
+	}
+	}
+}
