@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_ITEMS 100
+#define MAX_WEIGHT 100
+
+int weight[MAX_ITEMS];
+int value[MAX_ITEMS];
+int dp[MAX_ITEMS][MAX_WEIGHT];
+
+int max(int a, int b) {
+  return (a > b) ? a : b;
+}
+
+int knapsack(int n, int w) {
+  int i, j;
+  for (i = 0; i <= n; i++) {
+    for (j = 0; j <= w; j++) {
+      if (i == 0 || j == 0) {
+        dp[i][j] = 0;
+      } else if (weight[i-1] <= j) {
+        dp[i][j] = max(value[i-1] + dp[i-1][j-weight[i-1]], dp[i-1][j]);
+      } else {
+        dp[i][j] = dp[i-1][j];
+      }
+    }
+  }
+  return dp[n][w];
+}
+
+int main() {
+  int n = 4;
+  int w = 10;
+  weight[0] = 1;
+  weight[1] = 2;
+  weight[2] = 4;
+  weight[3] = 5;
+  value[0] = 5;
+  value[1] = 4;
+  value[2] = 6;
+  value[3] = 8;
+  int result = knapsack(n, w);
+  printf("Result: %d\n", result);
+  return 0;
+}
